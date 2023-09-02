@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+  <title>ABC SHOP</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+ 
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+  <style>
+    body{
+      
+    }
+    a{
+        color: black;
+        font-size: 1.7vw;
+        font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    }
+    .container-fluid{
+      background-color: rgba(0, 0, 0, 0.7);
+      border-radius: 2vw;
+      width: 30vw;
+      margin-left: 33vw;
+      margin-top:4vw;
+      padding:2vw;
+      color:white;
+     }
+
+
+  </style>
+  
+</head>
+<body style="background-image: url('{% static "img/hom.jpg" %}'); background-repeat:no-repeat; background-size: cover; ">
+    <nav class="navbar navbar-expand-md nav-pills bg-dark">
+        <div>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <h2>ABC SHOP</h2>
+                </li>
+            </ul>
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto ">
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'adminhome' %}">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'cat' %}">Category</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{% url 'product' %}">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'usere' %}">Customer</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'logout' %}">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+      {% block content %}
+      <div>
+        <div class="container-fluid text-center">
+            <h3 class="">Product Details</h3>
+            <form action="" method="POST" enctype="multipart/form-data">
+              {% csrf_token %}
+            <input type="text" name="pname" id="pname" class="form-control" placeholder="Product Name" value="{{category.product_name}}" required><br>
+            <input type="number" name="price" id="price" class="form-control" placeholder="Price" value="{{category.price}}" required><br>
+            <input type="text" name="description" id="description" class="form-control" placeholder="Product description" value="{{category.description}}" required><br>
+            <img src="{{category.image.url}}" alt="" class="w-25"><br>{{category.image}}
+            <input type="file" name="file" id="file" class="form-control" accept="product/" ><br>
+            <select name="sel" id="sel" class="form-control">
+                <option value="{{category.category.id}}" hidden>{{category.category.category_name}}</option>
+                {% for c in cate  %}
+                <option value="{{c.id}}">{{c.category_name}}</option>
+                {% endfor %}
+            </select>
+            <input type="submit" name="submit" class=" btn btn-success" id="">
+          </form>
+        </div><br>
+        <a href="{% url 'cat' %}" class="btn btn-success text-center" style="margin-left:46vw;">Back</a>
+    </div>   
+      {% endblock %}
+</body>
+</html>
